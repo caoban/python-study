@@ -1,0 +1,5 @@
+guanai:x:503:503::/home/guanai:/bin/bash
+jenkins:x:504:504::/home/jenkins:/bin/bash
+a1:x:505:505::/home/a1:/bin/bash
+pzh:x:506:506::/home/pzh:/bin/bash
+test:x:507:507::/home/test:/bin/bash
