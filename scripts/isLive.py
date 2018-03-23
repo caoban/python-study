@@ -2,13 +2,11 @@
 # -*- coding: utf-8 -*-
 import requests
 
-<<<<<<< HEAD
-=======
 #strip()方法 用于移除字符串头尾指定的字符（默认为空格）
 #split()通过指定分隔符对字符串进行切片
 #
 
->>>>>>> first commit
+
 with open("list1",'r') as f:
     for line in f:
         line = line.strip().split()
@@ -18,10 +16,9 @@ with open("list1",'r') as f:
         serviceslistsplit = serviceslist.strip().split(',')
 
         #for循环分离出服务的名称和端口，
-<<<<<<< HEAD
-=======
+
         #Exception 抓取全部异常，并打印出来出问题的时候的那个字段的值
->>>>>>> first commit
+
         for i in range(len(serviceslistsplit)):
             try:
                 servicesname = serviceslistsplit[i].strip().split(':')[0]
@@ -29,13 +26,13 @@ with open("list1",'r') as f:
             except Exception as e:
                 print('Reason:',e,servicesname,servicesport)
 
-<<<<<<< HEAD
+
             # 获取ip和端口，拼接执行 curl 命令,获取结果
-=======
+
 
             # 获取ip和端口，拼接执行 curl 命令,获取结果。requests 是可以curl的方式。有post或者get方法
             #replace 是替换
->>>>>>> first commit
+
             servicesurl = "http://%s:%s/isLive" %(ip,servicesport)
             curlresult = requests.get(servicesurl)
             curlreturnvalue = str(curlresult.text).replace('\n',"").replace(' ',"")
