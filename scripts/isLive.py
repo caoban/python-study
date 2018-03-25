@@ -4,7 +4,7 @@ import requests
 
 #strip()方法 用于移除字符串头尾指定的字符（默认为空格）
 #split()通过指定分隔符对字符串进行切片
-#test suhan
+#test suhan11111
 
 
 with open("list1",'r') as f:
