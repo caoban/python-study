@@ -105,7 +105,3 @@ for stu in school.students:
     stu.pay_tuition(5000)
 
 
-
-
-
-
