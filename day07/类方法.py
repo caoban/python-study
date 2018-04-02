@@ -22,15 +22,18 @@ class Dog(object):
         del self.__food
         print("删除完了")
 
+    def __str__(self):
+        return "obj:%s" %self.name
 
-
-
+#print(Dog.__dict__)
 d = Dog("chen")
+print(d)
+#print(d.__dict__)
 
-d.eat
-d.eat = "baozi"
-d.eat
-
-del d.eat
-d.eat
+# d.eat
+# d.eat = "baozi"
+# d.eat
+#
+# del d.eat
+# d.eat
 
