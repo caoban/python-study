@@ -8,10 +8,15 @@
 # print(type(Foo))
 
 def func(self):
-    print("hello alex")
+    print("hello %s" %self.name)
 
-Foo = type('Foo',(),{'talk':func})
-print(type(Foo))
+def __init__(self,name,age):
+    self.name=name
+    self.age=age
 
-f = Foo()
+Foo = type('Foo',(object,),{'talk':func,'__init__':__init__})
+
+
+f = Foo("chen",22)
 f.talk()
+print(type(Foo))
