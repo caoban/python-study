@@ -19,8 +19,11 @@ if hasattr(d,choice):
     getattr(d,choice)
 
 else:
-    setattr(d,choice,None)
-    print(d.age)
-    # v= getattr(d,choice)
-    # print(v)
+    #setattr 是塞一个函数或者值进去
+    setattr(d,choice,bulk)
+    func = getattr(d,choice)
+    func(d)
 
+    # #因为我输入的 talk，相当于是把 bulk函数地址赋给了talk。
+    # # 正常调用函数，传一个参数进去
+    # d.talk(d)
