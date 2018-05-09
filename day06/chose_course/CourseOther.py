@@ -75,9 +75,13 @@ class Teacher(SchoolMember):
         SchoolName:%s
         """ % (self.TeacherName,self.TeacherSex,self.TeacherAge,
                self.TeacherCourse,self.TeacherClassroom,self.TeacherSchoolName)  )
+
     def ShowClassroom(self):
         pass
+        #查看班级信息，通过其他类的信息，来看出来信息
+        #调用下 classroom的查看信息的方法
 
     def ShowStudent(self):
-        pass
+        StudentName = input("请输入要查看学生名称:")
+        #StudentDict[StudentName].ShowStudentInfo()
 
