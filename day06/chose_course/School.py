@@ -17,7 +17,6 @@ class School(object):
         print(ClassroomName,ClassroomPeriod)
 
 
-s
     def HireTeacher(self):
         print("聘请老师".center(30,'-'))
         TeacherName = input("请输入老师名称：").strip()
@@ -38,5 +37,7 @@ s
         #课程的实例化，课程信息的显示都没写
 
 
-class1 = School('oldboy','shanghai')
-class1.CreateClass()
+#class1 = School('oldboy','shanghai')
+#class1.CreateClass()
+
+
