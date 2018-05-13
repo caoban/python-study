@@ -1,3 +1,5 @@
+import mainpy
+
 
 #课程类
 class Course(object):
@@ -23,7 +25,6 @@ class Classroom(object):
         print("班级名称:%s\n班级周期:%s" % (self.ClassroomName, self.ClassroomPeriod))
 
 
-
 #学校成员类
 class SchoolMember(object):
     def __init__(self,MemberName,MemberSex,MemberAge):
@@ -35,8 +36,8 @@ class SchoolMember(object):
 
 #学生类
 class Student(SchoolMember):
-    def __init__(self,StudentSchool,StudentName,StudentSex,StudentAge,StudentId,StudentCourse,CoursePrice):
-        super(Student,self).__init__(StudentName,StudentAge,StudentSex)
+    def __init__(self,StudentSchool,MemberName,MemberSex,MemberAge,StudentId,StudentCourse,CoursePrice):
+        super(Student, self).__init__(MemberName, MemberSex, MemberAge)
         self.StudentSchool = StudentSchool
         self.StudentId = StudentId
         self.StudentCourse = StudentCourse
@@ -52,9 +53,11 @@ class Student(SchoolMember):
        Id:%s
        Course:%s
        CoursePrice:%s
-       """ % (self.StudentName,self.StudentSchool,self.StudentSex,
-              self.StudentAge,self.StudentId,self.StudentCourse,self.CoursePrice)
+       """ % (self.MemberName,self.StudentSchool,self.MemberSex,
+              self.MemberAge,self.StudentId,self.StudentCourse,self.CoursePrice)
         )
+
+
 
 #讲师类
 class Teacher(SchoolMember):
@@ -82,6 +85,8 @@ class Teacher(SchoolMember):
         #调用下 classroom的查看信息的方法
 
     def ShowStudent(self):
-        StudentName = input("请输入要查看学生名称:")
-        #StudentDict[StudentName].ShowStudentInfo()
+        MemberName = input("请输入要查看学生名称:")
+        mainpy.StudentDict[MemberName].ShowStudentInfo()
+
+
 

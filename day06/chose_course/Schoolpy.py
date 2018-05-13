@@ -14,7 +14,7 @@ class School(object):
         ClassroomPeriod = input("请输入班级周期：").strip()
         # 显示班级信息的没有写
         #在这个类里面直接实例化 班级的类了。 班级的属性可以写在里面
-        print(ClassroomName,ClassroomPeriod)
+        print("班级名称:%s,班级周期：%s" %(ClassroomName,ClassroomPeriod))
 
 
     def HireTeacher(self):
@@ -37,7 +37,5 @@ class School(object):
         #课程的实例化，课程信息的显示都没写
 
 
-#class1 = School('oldboy','shanghai')
-#class1.CreateClass()
 
 
