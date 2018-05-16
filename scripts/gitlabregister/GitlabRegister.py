@@ -19,11 +19,15 @@ EmailExample = "guanaitong.com"
 
 while True:
     # 输入需要创建的用户信息，密码是随机生成的
-    name = input("请输入中文用户名:")
-    email = input("请输入邮箱地址:")
-    username = email.strip().split("@guanaitong.com")[0]
-    password = "".join(random.sample(['A', 'b', '5', 'D', 'e', '7', 'g', 'h', '2', 'j', 'q'], 8))
-    # print("输入信息为：\n中文用户名:%s\n邮箱地址:%s\n登录username:%s\n" %(name,email,username))
+    name = input("请输入中文用户名:").strip()
+    email = input("请输入邮箱地址:").strip()
+    if (name != "") and (email != ""):
+        username = email.strip().split("@guanaitong.com")[0]
+        password = "".join(random.sample(['A', 'b', '5', 'D', 'e', '7', 'g', 'h', '2', 'j', 'q'], 8))
+        # print("输入信息为：\n中文用户名:%s\n邮箱地址:%s\n登录username:%s\n" %(name,email,username))
+    else:
+        print("用户名或邮箱不能为空")
+        continue
 
     if email.strip().split("@")[1] != EmailExample:
         print("邮箱格式不对!%s" %email)
