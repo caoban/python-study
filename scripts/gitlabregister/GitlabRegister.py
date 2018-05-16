@@ -21,12 +21,13 @@ while True:
     # 输入需要创建的用户信息，密码是随机生成的
     name = input("请输入中文用户名:").strip()
     email = input("请输入邮箱地址:").strip()
+
     if (name != "") and (email != ""):
         username = email.strip().split("@guanaitong.com")[0]
         password = "".join(random.sample(['A', 'b', '5', 'D', 'e', '7', 'g', 'h', '2', 'j', 'q'], 8))
         # print("输入信息为：\n中文用户名:%s\n邮箱地址:%s\n登录username:%s\n" %(name,email,username))
     else:
-        print("用户名或邮箱不能为空")
+        print("用户名或邮箱不能为空！")
         continue
 
     if email.strip().split("@")[1] != EmailExample:
@@ -36,8 +37,8 @@ while True:
         UserData = {'email': email, 'username': username, 'name': name, 'password': password, 'private_token': token}
         response = requests.post(CreateUserUrl, data=UserData)
         if response.status_code == 201:
-            email2 = "han.su@guanaitong.com"
-            data2 = {'tos':email2,'subject':"Gitlab密码",'content':"gitlab地址：" + url + " 登录用户：" + username + " 登录邮箱：" + email + " 密码：" + password }
+            #email2 = "han.su@guanaitong.com"
+            data2 = {'tos':email,'subject':"Gitlab密码",'content':"gitlab地址：" + url + " 登录用户：" + username + " 登录邮箱：" + email + " 密码：" + password }
             EmailUrl = "http://notice.ops.gat/sender/mail/"
             SendEmailResponse = requests.post(EmailUrl,data = data2)
             print("用户创建成功，并将密码发给用户")
@@ -49,11 +50,6 @@ while True:
 
 
 
-#http://python-gitlab.readthedocs.io/en/stable/api-usage.html
 
-#xurl = "%s/api/v3/projects?private_token=%s" %(url,token)
-# x = requests.get(xurl)
-# #两种都可以
-# content = x.json()
-# content2 = x.text
-# print(content)
+
+

@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['GitlabRegister.py'],
-             pathex=['E:\\python-study\\scripts\\gitlabregister'],
+             pathex=['D:\\pycharm-github\\python-study\\scripts\\gitlabregister'],
              binaries=[],
              datas=[],
              hiddenimports=[],
