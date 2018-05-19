@@ -5,7 +5,12 @@
 
 问题：
 Teacher 类里面的两个方法。Student类和方法里面生成的dict，在两一个类里面怎么才能调用到。
-
+解決：
+参数要传进去才能使用啊！！！
+定义的时候：
+    def CreateClass(self,TempSchoolObj):
+使用的时候：要把参数穿进去，那边也要接收
+ChoiceSchoolObjDict[0].CreateClass(ChoiceSchoolObjDict[0])
 
 
 

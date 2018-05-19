@@ -1,5 +1,5 @@
 import mainpy
-
+import Schoolpy
 
 #课程类
 class Course(object):

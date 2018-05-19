@@ -123,11 +123,11 @@ def master():
         ChoiceSchool = input("1.%s,2.%s,3.返回,4.退出 \n选择：" % (School1.SchoolName,School2.SchoolName))
 
         if ChoiceSchool == '1':
-            ChoiceSchoolObj = School1
             #不想用global，用列表存信息，别的函数里面用
             ChoiceSchoolObjDict.append(School1)
+            ChoiceSchoolObjDict[0].CreateClass(ChoiceSchoolObjDict[0])
+
         elif ChoiceSchool == '2':
-            ChoiceSchoolObj = School2
             ChoiceSchoolObjDict.append(School2)
         elif ChoiceSchool == '3':
             break
@@ -176,6 +176,9 @@ if __name__ == '__main__':
     # 实例化学校，实例化就是把信息传到类里面。一个类可以实例化多个对象
     School1 = Schoolpy.School("老男孩","北京")
     School2 = Schoolpy.School("关爱通","上海")
+
+    print("school:%s" %School1)
+    #print("school():%s" % School1())
 
 
     #实例化课程.就是把类里面的参数，具体化。一个人，实例化成一个具体什么样的人。

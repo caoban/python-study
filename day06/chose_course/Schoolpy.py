@@ -1,3 +1,6 @@
+import mainpy
+import CourseOtherpy
+
 import sys
 
 #学校类
@@ -8,13 +11,13 @@ class School(object):
         self.Address = Address
 
     #创建班级类
-    def CreateClass(self):
+    def CreateClass(self,TempSchoolObj):
         print("创建班级".center(30,'-'))
         ClassroomName = input("请输入班级名称：").strip()
         ClassroomPeriod = input("请输入班级周期：").strip()
-        # 显示班级信息的没有写
-        #在这个类里面直接实例化 班级的类了。 班级的属性可以写在里面
-        print("班级名称:%s,班级周期：%s" %(ClassroomName,ClassroomPeriod))
+        #调用 Classroom 类来实例化
+        ClassroomObj = CourseOtherpy.Classroom(ClassroomName,ClassroomPeriod,TempSchoolObj.SchoolName)
+        print("班级名称:%s,班级周期：%s,學校名稱:%s" %(ClassroomName,ClassroomPeriod,TempSchoolObj.SchoolName))
 
 
     def HireTeacher(self):
