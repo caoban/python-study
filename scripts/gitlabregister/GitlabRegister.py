@@ -9,6 +9,7 @@ __Date__ = '2018/05/14/20:46'
 import requests
 import random
 import string
+import re
 
 url = 'http://gitlab.wuxingdev.cn'
 token = 'zsm44PTux_r65p5rbTBG'
@@ -22,8 +23,14 @@ while True:
     name = input("请输入中文用户名:").strip()
     email = input("请输入邮箱地址:").strip()
 
+    try:
+        #判断输入的邮箱地址中要有@符号
+        re.search("@.+", email).group()
+    except Exception as e:
+        print("邮箱地址不对")
+        continue
 
-    if (name != "") and (email != "") and (email.strip().split("@")[1] != ""):
+    if (name != "") and (email != "") and (email.strip().split("@")[1] != "" and (email.strip().split("@")[0] != "")):
         username = email.strip().split("@guanaitong.com")[0]
         password = "".join(random.sample(['A', 'b', '5', 'D', 'e', '7', 'g', 'h', '2', 'j', 'q'], 8))
         print("输入信息为：\n中文用户名:%s\n邮箱地址:%s\n登录username:%s\n" %(name,email,username))
@@ -32,7 +39,7 @@ while True:
         continue
 
     if email.strip().split("@")[1] != EmailExample:
-        print("邮箱格式不对!%s" %email)
+        print("邮箱格式不对! :%s" %email)
         continue
     else:
         UserData = {'email': email, 'username': username, 'name': name, 'password': password, 'private_token': token}
