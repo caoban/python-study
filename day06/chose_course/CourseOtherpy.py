@@ -79,8 +79,10 @@ class Teacher(SchoolMember):
         """ % (self.TeacherName,self.TeacherSex,self.TeacherAge,
                self.TeacherCourse,self.TeacherClassroom,self.TeacherSchoolName)  )
 
-    def ShowClassroom(self):
+    def ShowClassroom(self,TeacherName):
+
         pass
+
         #查看班级信息，通过其他类的信息，来看出来信息
         #调用下 classroom的查看信息的方法
 

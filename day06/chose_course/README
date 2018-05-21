@@ -12,5 +12,8 @@ Teacher 类里面的两个方法。Student类和方法里面生成的dict，在�
 使用的时候：要把参数穿进去，那边也要接收
 ChoiceSchoolObjDict[0].CreateClass(ChoiceSchoolObjDict[0])
 
+第二个和第三个写的都还可以:
+参考2 https://www.cnblogs.com/catepython/p/8459615.html
+先参考参考3 https://www.cnblogs.com/0zcl/p/6006205.html
 
 

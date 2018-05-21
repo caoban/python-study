@@ -17,6 +17,7 @@ class School(object):
         ClassroomPeriod = input("请输入班级周期：").strip()
         #调用 Classroom 类来实例化
         ClassroomObj = CourseOtherpy.Classroom(ClassroomName,ClassroomPeriod,TempSchoolObj.SchoolName)
+
         print("班级名称:%s,班级周期：%s,學校名稱:%s" %(ClassroomName,ClassroomPeriod,TempSchoolObj.SchoolName))
 
 

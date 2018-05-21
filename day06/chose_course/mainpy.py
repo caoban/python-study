@@ -92,11 +92,12 @@ def TeacherView():
         print("功能未完善,只能输入Alex,cheng")
 
         if num == '1':
+            TeachersDict[name].ShowClassroom(name)
             pass
+
         elif num == '2':
             #输入的name找到对应的Teacher对象，再调Teacher的ShowStudent方法
             #查看老师对应的学生信息
-            print("22222222222")
             TeachersDict[name].ShowStudent()
         elif num == '3':
             break
