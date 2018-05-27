@@ -20,14 +20,18 @@ while True:
             break
         print("执行指令" ,data)
         #接受字符串，输出的结果也是字符串
-        cmd_res = os.popen(data.decode()).read()
-        # print("before send", len(cmd_res))
-        # if len(cmd_res) == 0:
-        #     cmd_res = "cmd has no output...."
-        # conn.send( str(len(cmd_res.encode())).encode("utf-8") )
-        # time.sleep(0.5)
+        cmd_res = os.popen(data.decode()).read() #接受字符串，执行结果也是字符串
+        print("before send", len(cmd_res.encode()))
+        if len(cmd_res) == 0:
+            cmd_res = "cmd has no output...."
+
+
+        # 这个是为了发送，指令输出的结果的大小给client。先传文件大小，再传文件数据
+        # 整数是不能直接encode的，先转出str，再encode。
+        conn.send( str(len(cmd_res.encode())).encode("utf-8") )
+        client_ack = conn.recv(1024) #等待客户端响应，这样上一条就会全部发送完成，不会粘包
         conn.send(cmd_res.encode("utf-8"))
-        # print("send done")
+        print("send done")
         # os.path.isfile()
         # os.stat("sock")
 
