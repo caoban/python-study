@@ -27,6 +27,11 @@ while True:
         m = hashlib.md5()
 
         while received_size < file_total_size:
+            if file_total_size - received_size > 1024: #收不止一次
+                size = 1024
+            else:#收的少于1024  这样永远都不会粘包
+                size = file_total_size - received_size
+
             data = client.recv(1024)
             received_size += len(data)
             m.update(data)

@@ -39,24 +39,26 @@ while True:
             file_size = os.stat(filename).st_size
             #传文件大小。转成byte类型
             print("str(file_size).encode() ___:",str(file_size).encode() )
-            conn.send = ( str(file_size).encode() )
-
+            conn.send( str(file_size).encode() )
             print("发送文件大小成功")
+
+
+
             #接收客户端响应，避免粘包
-        #     conn.recv(1024)
-        #
-        #     for line in f:
-        #         #对每行进行加密，因为文件大的话，不能等全部加载完再加密
-        #         #分割的每行进行加密和连在一起加密是 MD5值是一样的
-        #         m.update(line)
-        #         #分行 传输文件
-        #         conn.send(line)
-        #     #打印MD5值
-        #     print("file md5___:\n", m.hexdigest())
-        #     f.close()
-        #     #传输最后的整个文件的MD5值
-        #     conn.send(m.hexdigest().encode())
-        # print("send done")
+            conn.recv(1024)
+
+            for line in f:
+                #对每行进行加密，因为文件大的话，不能等全部加载完再加密
+                #分割的每行进行加密和连在一起加密是 MD5值是一样的
+                m.update(line)
+                #分行 传输文件
+                conn.send(line)
+            #打印MD5值
+            print("file md5___:\n", m.hexdigest())
+            f.close()
+            #传输最后的整个文件的MD5值
+            conn.send(m.hexdigest().encode())
+        print("send done")
 server.close()
 
 
