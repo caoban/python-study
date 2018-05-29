@@ -22,7 +22,7 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
 if __name__ == "__main__":
     HOST,PORT = "localhost", 6969
 
-    server = socketserver.TCPServer((HOST,PORT),MyTcpHandler)
+    server = socketserver.ThreadingTCPServer((HOST,PORT),MyTcpHandler)
     server.serve_forever()
 
 
