@@ -13,6 +13,13 @@ FTP server
 问题：
 client 端收到的文件大小为空
 
+#ftpserver作业
+处理到 ftp_server 的config目录下的setting.py文件。根据main函数来一步步走。
+
+
+
+
+
 
 
 
