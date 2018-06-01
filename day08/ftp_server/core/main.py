@@ -10,7 +10,7 @@ class Manager():
         :return: 
         '''
         #FTPserver是自定义的一个类
-        #server = FTPServer
+        server = FTPServer
 
 
 

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: podtest21001
+  name: podtest21001
+  namespace: pressuretest
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 21001
+  selector:
+    k8s-app: podtest21001
+  type: NodePort
