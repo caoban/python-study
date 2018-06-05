@@ -4,6 +4,7 @@ import hashlib
 import os
 import struct
 import pickle
+import subprocess
 
 from config import settings
 
@@ -139,6 +140,226 @@ class FTPServer():
                 filename = header_dic.get('filename')
                 file_size = header_dic.get('file_size')
                 file_md5 = header_dic.get()
+                self.file_path = os.path.join(os.getcwd(),filename)
+
+                if os.path.exists(self.file_path):
+                    self.conn.send(struct.pack('i',1))
+                    has_size = os.path.getsize(self.file_path)
+                    if has_size == file_size:
+                        print("\033[31;1mfile already does exist!\033[0m")
+                        self.conn.send(struct.pack('i',0))
+                    else:
+                        print('\033[31;1mLast file not finished,this time continue\033[0m')
+                        self.conn.send(struct.pack('i',1))
+                        if self.home_bytes_size + int(file_size - has_size) > self.quota_bytes:
+                            print('\033[31;1mSorry exceeding user quotas\033[0m')
+                            self.conn.send(struct.pack('i',0))
+                        else:
+                            self.conn.send(struct.pack('i',1))
+                            self.conn.send(struct.pack('i',has_size))
+                            with open(self.file_path,'ab') as f:
+                                f.seek(has_size)
+                                self.write_file(f,has_size,file_size)
+                            #用自己写的算MD5的方法
+                            self.verification_filemd5(file_md5)
+
+
+                else:
+                    self.conn.send(struct.pack('i',0))
+                    print('\033[31;1mSorry file does not exist now first put\033[0m')
+                    if self.home_bytes_size + int(file_size) > self.quota_bytes:
+                        print('\033[31;1mSorry exceeding user quotas\033[0m')
+                        #struct.pack 格式化字符的 i 表示int。0要么表示数据的0什么的，要么就是真的0
+                        self.conn.send(struct.pack('i',0))
+                    else:
+                        self.conn.send(struct.pack('i',1))
+                        with open(self.file_path,'wb') as f:
+                            #写入文件
+                            recv_size = 0
+                            self.write_file(f,recv_size,file_size)
+                        self.verification_filemd5(file_md5)
+
+
+        else:
+            print("\033[31;1muser does not enter file name\033[0m")
+
+
+    def write_file(self,f,recv_size,file_size):
+        """上传文件时，将文件内容写入文件中"""
+        while recv_size < file_size:
+            #每次接收的数据，循环写入文件中
+            res = self.conn.recv(settings.max_recv_bytes)
+            f.write(res)
+            recv_size += len(res)
+            #为了进度条显示
+            self.conn.send(struct.pack('i',recv_size))
+
+    #只是对比下MD5值，传完文件前后
+    def verification_filemd5(self,filemd5):
+        #判断文件内容的MD5
+        if self.getfile_md5() == filemd5:
+            print('\033[31;1mCongratulations download success\033[0m')
+            #传个int型的1过去
+            self.conn.send(struct.pack('i',1))
+        else:
+            print('\033[31;1mSorry download failed\033[0m')
+            self.conn.send(struct.pack('i',0))
+
+
+    def ls(self):
+        """查看当前工作目录下，先返回文件列表的大小，再返回查询的结果"""
+        print("\033[34;1mview current working directory\033[0m")
+        subpro_obj = subprocess.Popen('dir',shell=True,
+                                      stdout=subprocess.PIPE,
+                                      stderr=subprocess.PIPE)
+        stdout = subpro_obj.stdout.read()
+        stderr = subpro_obj.stderr.read()
+        self.conn.send(struct.pack('i',len(stdout + stderr)))
+        self.conn.send(stdout)
+        self.conn.send(stderr)
+
+    def mkdir(self,cmds):
+        """增加目录
+        在当前目录下，增加目录
+        1、查看目录名是否已经存在
+        2、增加目录成功返回1 
+        3、增加目录失败返回0
+        """
+        print("\033[34;1madd working directory\033[0m")
+        if len(cmds) > 1:
+            mkdir_path = os.path.join(os.getcwd(),cmds[1])
+            if not os.path.exists(mkdir_path):
+                os.mkdir(mkdir_path)
+                print('\033[31;1mCongratulations add directory success\033[0m')
+                self.conn.send(struct.pack('i',1))
+            else:
+                print("\033[31;1muser directory already does exist\033[0m")
+                self.conn.send(struct.pack('i',0))
+        else:
+            print("\033[31;1muser does not enter file name\033[0m")
+
+    def cd(self,cmds):
+        """
+        切换目录
+        1、查看是否是目录名
+        2、拿到当前目录，拿到目标目录
+        3、判断homedir是否在目标目录内，防止用户越过自己的home目录
+        4、切换成功，返回1
+        5、切换失败返回0
+        """
+        print("\033[34;1mSwitch working directory\033[0m")
+        if len(cmds) > 1:
+            dir_path = os.path.join(os.getcwd(),cmds[1])
+            if os.path.isdir(dir_path):
+                #os.getcwd,获取当前目录
+                previous_path = os.getcwd()
+                #os.chdir改变当前脚本目录
+                os.chdir(dir_path)
+                target_dir = os.getcwd()
+                if self.homedir_path in target_dir:
+                    print('\033[31;1mCongratulations switch directory success\033[0m')
+                    self.conn.send(struct.pack('i',1))
+                else:
+                    print('\033[31;1mSorry switch directory failed\033[0m')
+                    #切换失败后，返回到之前的目录下
+                    os.chdir(previous_path)
+                    self.conn.send(struct.pack('i',0))
+            else:
+                print('\033[31;1mSorry switch directory failed,the directory is not current directory\033[0m')
+                self.conn.send(struct.pack('i', 0))
+
+        else:
+            print("\033[31;1muser does not enter file name\033[0m")
+
+
+    def remove(self,cmds):
+        """删除指定的文件或者空的文件夹
+        1.删除成功，返回1
+        2、删除失败，返回0
+        """
+        print("\033[34;1mRemove working directory\033[0m")
+        if len(cmds) > 1:
+            file_name = cmds[1]
+            file_path = os.path.join(os.getcwd(),file_name)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+                self.conn.send(struct.pack('i', 1))
+            #删除目录
+            elif os.path.isdir(file_path):
+                if not len(os.listdir(file_path)):
+                    os.removedirs(file_path)
+                    print('\033[31;1mCongratulations remove success\033[0m')
+                    self.conn.send(struct.pack('i', 1))
+                else:
+                    print('\033[31;1mSorry remove directory failed\033[0m')
+                    self.conn.send(struct.pack('i', 0))
+
+            else:
+                print('\033[31;1mSorry remove directory failed\033[0m')
+                self.conn.send(struct.pack('i', 0))
+        else:
+            print("\033[31;1muser does not enter file name\033[0m")
+
+
+    def get_recv(self):
+        """从client端接收发出来的数据"""
+        user_dic = self.get_recv()
+        username = user_dic['username']
+        password = user_dic['password']
+        md5_obj = hashlib.md5()
+        md5_obj.update(password)
+        check_password = md5_obj.hexdigest()
+
+    def auth(self):
+        """
+        处理用户的认证请求
+        1、根据username读取account.ini文件，然后查看用户是否存在
+        2、将程序运行的目录从bin.user_auth修改到用户home/username方便之后查询
+        3、把客户端返回用户的详细信息
+        """
+        while True:
+            user_dic = self.get_recv()
+            username = user_dic['username']
+            password = user_dic['password']
+            md5_obj = hashlib.md5(password.encode('utf-8'))
+            check_password = md5_obj.hexdigest()
+            user_handle = UserHandle(username)
+            #判断用户是否存在，返回列表
+            user_data = user_handle.judge_user()
+            if  user_data:
+                pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
