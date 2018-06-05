@@ -9,7 +9,7 @@ deployment = load(podtest21001)
 
 num = 21000
 
-while num < 21036:
+while num < 21086:
     num+=1
     name='deploytest' + str(num)
 

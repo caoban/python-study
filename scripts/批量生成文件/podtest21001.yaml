@@ -29,7 +29,7 @@ spec:
                   fieldPath: status.podIP
             - name: APP_NAME
               value: podtest21001
-          image: registry.wuxingdev.cn/java/for-test-war:v20180530114217
+          image: registry.wuxingdev.cn/java/for-test-war:v20180531150211
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
