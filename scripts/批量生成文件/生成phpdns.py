@@ -1,8 +1,11 @@
 import re
 
+count = 1
+
 with open('cc.domain','r') as f:
     for line in f:
         line = line.strip().strip(".cc")
+
         if re.search("^.+guanaitong$",line):
             line = line.strip().split('.guanaitong')[0]
             doman_dns = line + " 			   A	        221.12.127.35"
@@ -13,7 +16,7 @@ with open('cc.domain','r') as f:
 
         elif re.search("^.+ciicgat$",line):
 
-            line = line.strip().split('.ciicgat')[0]
+            line = line.strip().split(".ciicgat")[0]
             doman_dns = line + " 			   A	        221.12.127.35"
             with open("ciicgat_dns", 'a+') as ciicgat:
                 ciicgat.write(doman_dns+'\n')
@@ -30,7 +33,7 @@ with open('cc.domain','r') as f:
             #print("4008885818---%s" % line)
 
         else:
-            print("else---%s" % line)
+            print("else--%s---%s" % (line,count))
 
 
         # line = line.strip().split('.guanaitong.cc')[0]
@@ -38,12 +41,4 @@ with open('cc.domain','r') as f:
         # print(doman_dns)
         # with open("doman_dns.txt",'a+') as f2:
         #     f2.write(doman_dns+'\n')
-
-
-
-
-
-
-
-
 
