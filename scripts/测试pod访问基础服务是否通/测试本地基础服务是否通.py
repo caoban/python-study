@@ -1,7 +1,5 @@
-
 import socket
 
-#检查mysql端口的方法
 def CheckMysqlPort():
     sk = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sk.settimeout(1)
