@@ -46,6 +46,7 @@ class Manager():
             print(msg)
             user_choice = input("Please input a command>>>").strip()
             if user_choice in menu_dic:
+                #反射 获取对应字符的函数的内存地址
                 getattr(self, menu_dic[user_choice])()
             else:
                 print("\033[31;1myou choice doesn't exist\033[0m")
