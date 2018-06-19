@@ -14,12 +14,16 @@ class UserHandle():
 
     def __init__(self, username):
         self.username = username
+        #configparser.ConfigParser 是对指定的配置文件进行增删改查操作 my.cnf那种格式的文件
         self.config = configparser.ConfigParser()
+        #读入文件，accounts.ini 文件，后面估计做修改用.settings.ACCOUNTS_FILE是自己定义的
         self.config.read(settings.ACCOUNTS_FILE)
 
+    #@property 属性方法，赋值的操作。 当做一个变量那种去赋值。 但是没有存下来。不能()的方式调用
     @property
     def password(self):
-        '''生成用户的默认密码 '''
+        #就是输入后，使用MD5加密操作
+        '''生成用户的默认密码  '''
         password_inp = input("\033[32;1mplease input your password>>>\033[0m").strip()
         md5_obj = hashlib.md5()
         md5_obj.update(password_inp.encode())
@@ -30,6 +34,7 @@ class UserHandle():
     def disk_quota(self):
         '''生成每个用户的磁盘配额'''
         quota = input('\033[32;1mplease input Disk quotas>>>:\033[0m').strip()
+        #isdigit() 判断字符是否只有数据组成
         if quota.isdigit():
             return quota
         else:
@@ -37,7 +42,9 @@ class UserHandle():
 
     def add_user(self):
         """创建用户,存到accounts.ini"""
+        #config.has_section 是判断配置文件中是否有 [xxx] 这个块字段
         if not self.config.has_section(self.username):
+            #如果没有，就添加用户
             print('\033[31;1mcreating username is :%s \033[0m' % self.username)
             self.config.add_section(self.username)
             self.config.set(self.username, 'password', self.password)
@@ -52,5 +59,6 @@ class UserHandle():
 
     def judge_user(self):
         """判断用户是否存在"""
+        #判断是否存在，在添加用户的时候也用到这个
         if self.config.has_section(self.username):
             return self.config.items(self.username)
