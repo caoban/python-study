@@ -11,6 +11,7 @@ from config import settings
 from core.user_handle import UserHandle
 
 
+#就一个class，里面定义个各种server端的方法。
 class FTPServer():
     def __init__(self, server_address, bind_and_listen=True):
         self.server_address = server_address
