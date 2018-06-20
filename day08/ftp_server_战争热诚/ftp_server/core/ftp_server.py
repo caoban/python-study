@@ -13,6 +13,7 @@ from core.user_handle import UserHandle
 
 #就一个class，里面定义个各种server端的方法。
 class FTPServer():
+    #判断写在__init__里面，调用下面定义的方法。
     def __init__(self, server_address, bind_and_listen=True):
         self.server_address = server_address
         self.socket = socket.socket(settings.address_family, settings.socket_type)
@@ -23,12 +24,16 @@ class FTPServer():
             except Exception:
                 self.server_close()
 
+    #绑定server
     def server_bind(self):
         allow_reuse_address = False
         if allow_reuse_address:
+            #SOL_SOCKET 当用closesocket时马上关闭socket
+            #SO_REUSEADDR 关闭以后的可以立刻使用  1 应该表示是时间
             self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.socket.bind(self.server_address)
 
+    #监听 封装成一个方法。 里面的参数用的是import进来的配置文件中的。
     def server_listen(self):
         self.socket.listen(settings.listen_count)
 
