@@ -37,15 +37,19 @@ class FTPServer():
     def server_listen(self):
         self.socket.listen(settings.listen_count)
 
+    #server 端 socket关闭封装成一个函数。不过像这种这样短的，不封装也行。
     def server_close(self):
         self.socket.close()
 
+    #accept 接收的是 conn，addr 。就是对象和过来的地址和端口。
     def server_accept(self):
         return self.socket.accept()
 
+    #这个就是 server的对象的close
     def conn_close(self, conn):
         conn.close()
 
+    #获取文件的MD5 里面用到了 自己定义发方法。 self.readfile()  加个self 表示自己的可能。
     def getfile_md5(self):
         '''获取文件的md5'''
         return hashlib.md5(self.readfile()).hexdigest()
