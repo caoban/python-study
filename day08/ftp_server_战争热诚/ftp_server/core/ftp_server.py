@@ -54,12 +54,15 @@ class FTPServer():
         '''获取文件的md5'''
         return hashlib.md5(self.readfile()).hexdigest()
 
+    #二进制的方式读取文件，file_path可能是需要手动传进去的。
     def readfile(self):
         '''读取文件，得到文件内容的bytes类型'''
         with open(self.file_path, 'rb') as f:
             filedata = f.read()
         return filedata
 
+    #不断地发送数据，初始已经存在的数据为0。
+    #这个只是 循环 send，初始化对象什么的操作，在另一个函数里面。
     def send_filedata(self, exist_file_size=0):
         """下载时，将文件打开，send(data)"""
         with open(self.file_path, 'rb') as f:
@@ -71,6 +74,7 @@ class FTPServer():
                 else:
                     break
 
+    #get 方法的函数
     def get(self, cmds):
         '''
        下载，首先查看文件是否存在，然后上传文件的报头大小，上传文件，以读的方式发开文件
@@ -82,9 +86,12 @@ class FTPServer():
        :param cmds:
        :return:
                '''
+        #命令输入的对不对
         if len(cmds) > 1:
+            #获取文件的路径
             filename = cmds[1]
             self.file_path = os.path.join(os.getcwd(), filename)
+            #
             if os.path.isfile(self.file_path):
                 file_size = os.path.getsize(self.file_path)
                 obj = self.conn.recv(4)
