@@ -14,3 +14,5 @@ from config import settings
 if __name__ == '__main__':
     a = main.Manager()
     a.interactive()
+
+
