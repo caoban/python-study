@@ -2,12 +2,12 @@ import re
 
 with open('php_domain_dev_new_yuanshi_04','r') as f:
     for line in f:
-        line = line.strip().strip(".dev.ofc")
-        print(line)
+        line = line.strip().split(".dev.ofc")
+        line = line[0]
+        #print(line[0])
         doman_dns = line + " 			   A	        192.168.30.105"
         with open("test_jx_dns", 'a+') as guanai:
           guanai.write(doman_dns+'\n')
-
 
 
         # if re.search("^.+guanaitong$",line):

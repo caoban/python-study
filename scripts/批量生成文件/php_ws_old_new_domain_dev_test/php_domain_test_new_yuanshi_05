@@ -39,7 +39,7 @@ epp.services.test.jx
 love.services.test.jx
 mall.services.test.jx
 weixin.services.test.jx
-old-userdoor.services.test.jx
+olduserdoor.services.test.jx
 jifen.services.test.jx
 notifyagent.services.test.jx
 datacenter.services.test.jx

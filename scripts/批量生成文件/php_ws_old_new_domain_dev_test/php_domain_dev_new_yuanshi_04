@@ -39,7 +39,7 @@ epp.services.dev.ofc
 love.services.dev.ofc
 mall.services.dev.ofc
 weixin.services.dev.ofc
-old-userdoor.services.dev.ofc
+olduserdoor.services.dev.ofc
 jifen.services.dev.ofc
 notifyagent.services.dev.ofc
 datacenter.services.dev.ofc
