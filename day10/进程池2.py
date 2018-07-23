@@ -1,5 +1,7 @@
 from multiprocessing import Process, Pool, freeze_support
 
+import greenlet
+
 import time
 import os
 
