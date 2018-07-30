@@ -1,0 +1,7 @@
+
+上传到阿里云的oss上面：使用的时候
+python /root/scripts/oss_op.py /data1/jenkins/workspace/$Project/ dist $name/
+python /root/scripts/oss_op.py /data1/jenkins/workspace/$Project/ static $name/static
+
+
+
