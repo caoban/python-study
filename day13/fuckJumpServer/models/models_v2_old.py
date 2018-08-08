@@ -1,5 +1,5 @@
 #导入ORM 需要的模块
-from sqlalchemy import Table, Column, Enum,Integer,String,DATE, ForeignKey,UniqueConstraint, create_engine
+from sqlalchemy import Table, Column, Enum,Integer,String,DATE, ForeignKey,UniqueConstraint
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import ChoiceType
@@ -13,18 +13,6 @@ user_m2m_bindhost = Table('user_m2m_bindhost',Base.metadata,
                             Column('userprofile_id', Integer, ForeignKey('user_profile.id')),#ForeignKey 是这个表中的字段关联到对应的哪个表哪个字段
                             Column('bindhost_id', Integer, ForeignKey('bind_host.id'))
                             )
-
-
-bindhost_m2m_hostgroup = Table('bindhost_m2m_hostgroup',Base.metadata,
-                            Column('bindhost_id', Integer, ForeignKey('bind_host.id')),#ForeignKey 是这个表中的字段关联到对应的哪个表哪个字段
-                            Column('hostgroup_id', Integer, ForeignKey('host_group.id'))
-                            )
-
-user_m2m_hostgroup = Table('userprofile_m2m_hostgroup',Base.metadata,
-                            Column('userprofile_id', Integer, ForeignKey('user_profile.id')),#ForeignKey 是这个表中的字段关联到对应的哪个表哪个字段
-                            Column('hostgroup_id', Integer, ForeignKey('host_group.id'))
-                            )
-
 
 
 
@@ -50,8 +38,6 @@ class HostGroup(Base):
     __tablename__ = 'host_group'
     id = Column(Integer, primary_key=True)  # 创建id 设置成主键，是默认自增的
     name = Column(String(64),unique=True)
-
-    bind_hosts = relationship("BindHost",secondary='bindhost_m2m_hostgroup', backref='host_groups')
 
     def __repr__(self):
         return self.name
@@ -89,12 +75,12 @@ class BindHost(Base):
 
     id = Column(Integer, primary_key=True)
     host_id = Column(Integer, ForeignKey('host.id'))
-    #group_id = Column(Integer, ForeignKey('group.id'))
+    group_id = Column(Integer, ForeignKey('group.id'))
     remoteuser_id = Column(Integer, ForeignKey('remote_user.id'))
 
     #做关联关系，得有外键
     host = relationship("Host",backref="bind_hosts")
-    #host_group = relationship("HostGroup",backref="bind_hosts")
+    host_group = relationship("HostGroup",backref="bind_hosts")
     remote_user = relationship("RemoteUser",backref="bind_hosts")
 
     #返回到时候显示的时候想要的值
@@ -112,7 +98,6 @@ class UserProfile(Base):
     password = Column(String(128))
 
     bind_hosts = relationship("BindHost", secondary='user_m2m_bindhost',backref="user_profiles")
-    host_groups = relationship("HostGroup", secondary='user_m2m_hostgroup', backref='user_profiles')
 
     def __repr__(self):
         return self.username
