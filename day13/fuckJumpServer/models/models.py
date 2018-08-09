@@ -35,10 +35,6 @@ class Host(Base):
     ip = Column(String(64),unique=True)
     port = Column(Integer,default=22)
 
-    #建立关联关系。一个主机，对应多个堡垒机用户的账号
-    # Host类中的表和RemoteUser类中的表建立关联，存在第三张host_m2m_remoteuser中。
-    #反查Host类中的表的数据的时候 使用 hosts 查
-    remote_users = relationship('RemoteUser', secondary=host_m2m_remoteuser, backref='hosts')
 
     #这个函数是为了显示的时候能显示值，不会显示函数的内存地址
     #return 是自己写的
@@ -85,7 +81,8 @@ class BindHost(Base):
     192.168.1.11 mysql sh_group
     '''
     __tablename__ = 'bind_host'
-    __table_args__ = (UniqueConstraint('host_id', 'group_id', 'remoteuser_id', name='_host_group_remoteuser_uc'))
+    #最后的一个 逗号一定要记得
+    __table_args__ = (UniqueConstraint('host_id', 'remoteuser_id', name='_host_remoteuser_uc'),)
 
     id = Column(Integer, primary_key=True)
     host_id = Column(Integer, ForeignKey('host.id'))
@@ -99,10 +96,10 @@ class BindHost(Base):
 
     #返回到时候显示的时候想要的值
     def __repr__(self):
-        return "<%s--%s--%s>" %(self.host.ip,
-                                self.remote_user.username,
-                                self.host_group.name
-                                )
+        return "<%s--%s>" %(self.host.ip,
+                                self.remote_user.username
+                              )
+
 
 
 class UserProfile(Base):
@@ -111,8 +108,9 @@ class UserProfile(Base):
     username = Column(String(32),unique=True)
     password = Column(String(128))
 
+    #secondary 是 第三张表的表名
     bind_hosts = relationship("BindHost", secondary='user_m2m_bindhost',backref="user_profiles")
-    host_groups = relationship("HostGroup", secondary='user_m2m_hostgroup', backref='user_profiles')
+    host_groups = relationship("HostGroup", secondary='userprofile_m2m_hostgroup', backref='user_profiles')
 
     def __repr__(self):
         return self.username
