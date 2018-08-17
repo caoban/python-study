@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .pg-header{
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 48px;
+            background-color: #245912;
+            line-height: 48px;/*  等于div高度，这样文字就真正的居中了*/
+
+        }
+        .pg-body{
+            margin-top: 48px;
+        }
+        .w{
+            width: 980px;
+            margin: 0 auto; /*  这个表示居中的意思*/
+
+        }
+
+         /* pg-header下面的menu。 设置menu的格式 */
+        .pg-header .menu{
+            display: inline-block; /* pg-header下面的menu  */
+            padding: 0 10px; /* 上下0 左右10px。每个标签间就有些10px距离间隔  */
+            color: white;
+
+        }
+
+        /* pg-header下面的menu 相关几个标签。当鼠标放上去的时候，就会生效*/
+        .pg-header .menu:hover{
+            background-color: blue;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="pg-header">
+        <div class="w">
+            <a class="logo">LOGO</a>
+            <a class="menu">42区</a>
+            <a class="menu">段子</a>
+            <a class="menu">其他</a>
+        </div>
+    </div>
+
+    <div class="pg-body">
+        <div class="w">s</div>
+    </div>
+</body>
+</html>

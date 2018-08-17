@@ -5,14 +5,26 @@
     <title>Title</title>
 </head>
 <body>
-    <div style="z-index: 10;position: fixed;background-color: white"></div>
 
+<!--第一层-->
+    <div style="display:inline-block;z-index: 10;position: fixed;top: 30%;left: 20%;
+    margin-left: -250px;
+    margin-top: -200px;
+    background-color: white;height: 200px;width: 200px;">
+
+        <input type="text"/>
+
+    </div>
+
+<!--第二层-->
     <div style="z-index: 9;position: fixed;background-color: black;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
     opacity: 0.5;"></div>
+
+<!--第三层-->
     <div style="height: 5000px;background-color: cadetblue;">
         adfafadfas
     </div>
