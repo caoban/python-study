@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="i1">欢迎老男孩莅临指导</div>
+    <script>
+        function func1() {
+            // 根据标签的id来获取这个标签
+            var tag = document.getElementById('i1');
+            // 获取到标签后，获取标签中的内容
+            var content = tag.innerText;
+            //获取第一个字符，用来放到最后
+            var f1 = content.charAt(0);
+            //获取除了第一个以外的剩下的字符
+            var f2 = content.substring(1,content.length);
+            // 拼接出来新的字符
+            var newcontent = f2 + f1;
+            //总把第一个字符放到最后，这样就循环起来了
+            tag.innerText = newcontent;
+
+        }
+        //定时任务去执行函数
+        setInterval('func1()',500);
+
+    </script>
+</body>
+</html>
