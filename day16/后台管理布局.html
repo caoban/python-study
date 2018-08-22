@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* body 是body标签，margin: 0表示上下左右没有空隙 */
+        body{
+            margin: 0;
+        }
+        .pg-header{
+            height: 48px;
+            background-color: #2459a2;
+            color: white;
+        }
+        .right{
+            float: right;
+        }
+        .left{
+            float: left;
+        }
+        .pg-content .menu{
+            width: 20%;
+            background-color: red;
+            min-width: 200px; /* 最小只能缩小到200px */
+        }
+        .pg-content .content{
+            width: 80%;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="pg-header"></div>
+    <div class="pg-content">
+        <div class="menu left">a</div>
+        <div class="content left">f</div>
+    </div>
+
+    <div class="pg-footer"></div>
+</body>
+</html>
