@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .hide{
+            display: none;  /*这个是使得其他样式不生效的*/
+        }
+        .c1{
+            position: fixed;   /*遮罩层的样式，上下都是0，这样就都遮住了*/
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background-color: black;
+            opacity: 0.6;   /*遮罩层的透明度*/
+            z-index: 9; /*因为有多层，设置个优先级*/
+        }
+        .c2{
+            /*弹出层的样式，高和宽*/
+            width: 500px;
+            height: 400px;
+            background-color: white;
+            position: fixed;
+             /*弹出层的样式  左右的距离 和位置*/
+            left: 50%;
+            top: 50%;
+            margin-left: -250px;
+            margin-top: -200px;
+            z-index: 10; /*因为有多层，数字大，优先级高，在上面*/
+        }
+
+    </style>
+
+</head>
+<body>
+    <div>
+        <!--onclick 对应的函数-->
+        <input type="button" value="添加" onclick="ShowModel();" />
+        <input type="button" value="全选" onclick="ChooseAll();" />
+        <input type="button" value="取消" onclick="CancleAll();" />
+        <input type="button" value="反选" onclick="ReverseAll();" />
+        <table>
+            <thead>
+                <tr>
+                    <th>选择</th>
+                    <th>主机名</th>
+                    <th>端口</th>
+                </tr>
+            </thead>
+            <tbody id="tb">
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1.1.1.1</td>
+                    <td>22</td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1.1.2.2</td>
+                    <td>33</td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1.1.3.3</td>
+                    <td>44</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 遮罩层开始-->
+    <!--有两个样式，有了hide，c1也就不生效了-->
+    <div id="i1" class="c1 hide"></div>
+    <!-- 遮罩层结束-->
+
+    <!-- 弹窗开始-->
+    <div id="i2" class="c2 hide">
+        <p><input type="text"/></p>
+        <p><input type="text"/></p>
+        <p>
+        <input type="button" value="确定"/>
+        <input type="button" value="取消" onclick="HideModel();"/>
+        </p>
+    </div>
+    <!-- 弹窗结束-->
+
+    <script>
+
+
+        // add remove 是添加和删除样式的
+        <!--显示样式-->
+        function ShowModel(){
+            document.getElementById('i1').classList.remove('hide');
+            document.getElementById('i2').classList.remove('hide');
+        }
+
+        <!--不显示样式-->
+        function HideModel(){
+            document.getElementById('i1').classList.add('hide');
+            document.getElementById('i2').classList.add('hide');
+        }
+
+        // 全选，就是把checkbox.checked 设置成 true
+        function ChooseAll() {
+            // 获取到td标签
+            var tbody = document.getElementById('tb');
+            // 获取到 td标签的所有的孩子标签的总体
+            var tr_list = tbody.children;
+
+            for(var i=0;i<tr_list.length;i++){
+                // 循环所有的tr
+                var current_tr = tr_list[i];
+                var checkbox = current_tr.children[0].children[0];
+                checkbox.checked = true;
+            }
+        }
+
+
+        // 全选，就是把checkbox.checked 设置成 false
+        function CancleAll() {
+            // 获取到td标签
+            var tbody = document.getElementById('tb');
+            // 获取到 td标签的所有的孩子标签的总体
+            var tr_list = tbody.children;
+
+            for (var i = 0; i < tr_list.length; i++) {
+                // 循环所有的tr
+                var current_tr = tr_list[i];
+                var checkbox = current_tr.children[0].children[0];
+                checkbox.checked = false;
+            }
+        }
+
+        // 反选，就是把checkbox.checked 设置成 反过来
+        function ReverseAll() {
+            // 获取到td标签
+            var tbody = document.getElementById('tb');
+            // 获取到 td标签的所有的孩子标签的总体
+            var tr_list = tbody.children;
+
+            for (var i = 0; i < tr_list.length; i++) {
+                // 循环所有的tr
+                var current_tr = tr_list[i];
+                var checkbox = current_tr.children[0].children[0];
+                if (checkbox.checked) {
+                    checkbox.checked = false;
+                }
+                else {
+                    checkbox.checked = true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
