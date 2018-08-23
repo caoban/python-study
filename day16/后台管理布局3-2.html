@@ -16,9 +16,23 @@
         }
         .pg-header .logo{
             width: 200px;
-            background-color: #245912;
+            background-color: cadetblue;
+            text-align: center; /* 这样就左右横向居中了*/
         }
-
+        .pg-header .user{
+            width: 160px;
+            background-color: wheat;
+            color: white;
+        }
+        .pg-header .user:hover{
+            background-color: cornflowerblue;
+        }
+        .pg-header .user .a img{
+            height: 40px;
+            width: 40px;
+            margin-top: 4px;
+            border-radius: 50%;
+        }
         .right{
             float: right;
         }
@@ -45,11 +59,18 @@
 </head>
 <body>
     <div class="pg-header">
-        <div class="logo">
+        <!--要加个left，不float起来，整个一行就占住了。-->
+        <div class="logo left">
             老男孩
         </div>
 
-        <div class="user"></div>
+        <!--position:relative 要和 position: absolute 一起使用-->
+        <div class="user right" style="position:relative;">
+            <a class="a" href="#">
+                <img  src="2.jpg" >
+            </a>
+            <div style="position: absolute;top: 0;right: 0;">11111</div>
+        </div>
 
     </div>
     <div class="pg-content">
