@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* body 是body标签，margin: 0表示上下左右没有空隙 */
+        body{
+            margin: 0;
+        }
+        .pg-header{
+            height: 48px;
+            background-color: #2459a2;
+            color: white;
+        }
+        .right{
+            float: right;
+        }
+        .left{
+            float: left;
+        }
+        .pg-content .menu{
+            position: absolute; /* 这个用的是absolute */
+            top: 48px;
+            left: 0;
+            bottom: 0;
+            width: 200px;
+            background-color: #dddddd;
+        }
+        .pg-content .content{
+            position: absolute;
+            top: 48px;
+            right: 0;
+            bottom: 0;
+            left: 200px;
+            overflow: auto; /* 加上这个标签，左侧的菜单就会一直在左侧，跟随着滚轮*/
+        }
+    </style>
+</head>
+<body>
+    <div class="pg-header"></div>
+    <div class="pg-content">
+        <div class="menu left">a</div>
+        <div class="content left">
+
+            <!--因为用的absolute，所以再加一层div，设置内容的颜色。不然就会只有一屏高度的样式-->
+            <div style="background-color: purple;">
+            <!--p 标签有边框的-->
+            <p style="margin: 0">222223</p>
+            <p>111111</p>
+            <p>q1q1q1q1q1q</p>
+            <p>aasfgf</p>
+            <p>jhgfdshgfd</p>
+            <p>12212</p>
+            <p>asa</p>
+            <p>usd</p>
+            <p>546</p>
+            <p>所发生的法法师</p>
+            <p>地方是否舒服舒服</p>
+            <p> 发生大范围而发送端</p>
+            <p>是</p>
+            <p>发的发生的 </p>
+            <p>www</p>
+            <p>q</p>
+            <p>驱蚊器欧罗拉</p>
+            <p>请求</p>
+            <p>jhgfdshgfd</p>
+            <p>,..s.s.</p>
+            <p>12a22s</p>
+            <p>q1q1e</p>
+            <p>q</p>
+            <p>所发生的法法师</p>
+            <p>地方是否舒服舒服</p>
+            <p> 发生大范围而发送端</p>
+            <p>是</p>
+            <p>发的发生的 </p>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="pg-footer"></div>
+</body>
+</html>
