@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <!-- 引入别人的图标font-awesome 网站上图片。 带min的是压缩版的 -->
+    <link rel="stylesheet" herf="font-awesome-4.7.0/css/font-awesome.min.css" />
+
     <style>
         /* body 是body标签，margin: 0表示上下左右没有空隙 */
         body{
@@ -33,6 +37,21 @@
             margin-top: 4px;
             border-radius: 50%;
         }
+        .pg-header .user .b{
+            z-index:20;position: absolute;top: 48px;right: 40px;background-color: red;
+            width: 160px;
+            display: none; /* 默认是看不见的 */
+
+        }
+        /* 这个样式是鼠标放上去的时候才会生效 */
+        .pg-header .user:hover .b{
+            display: block;
+        }
+
+        .pg-header .user .b a{
+            display: block;
+
+        }
         .right{
             float: right;
         }
@@ -48,6 +67,7 @@
             background-color: #dddddd;
         }
         .pg-content .content{
+            z-index:9;
             position: absolute;
             top: 48px;
             right: 0;
@@ -64,12 +84,21 @@
             老男孩
         </div>
 
+        <div >
+            123123123
+            <i class="fa fa-bell-o" aria-hidden="true">12313</i>
+        </div>
+
+
         <!--position:relative 要和 position: absolute 一起使用-->
         <div class="user right" style="position:relative;">
             <a class="a" href="#">
                 <img  src="2.jpg" >
             </a>
-            <div style="position: absolute;top: 0;right: 0;">11111</div>
+            <div class="b" >
+                <a>我的资料</a>
+                <a>注销</a>
+            </div>
         </div>
 
     </div>
