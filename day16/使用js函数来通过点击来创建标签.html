@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="button" onclick="AddEle1();" value="创建" />
+     <input type="button" onclick="AddEle2();" value="创建2" />
+    <div id="i1">
+        <p>
+        <input type="text" />
+        </p>
+    </div>
+    <script>
+
+        //通过字符串的方式来创建
+        function AddEle1(){
+            //创建一个标签
+            //点击按钮可以添加到页面上
+            var tag = "<p><input type='text' /></p>";
+
+            //注意：第一个参数只能是beforeEnd afterBegin beforeEnd afterEnd
+            document.getElementById('i1').insertAdjacentHTML("beforeEnd",tag);
+        }
+
+        //通过对象的方式来创建
+        function AddEle2(){
+            var tag = document.createElement('input');
+            tag.setAttribute('type','text');
+            tag.style.fontSize = '16px';
+            tag.style.color = 'red';
+
+            //把input标签放在p 标签里面
+            var p = document.createElement('p');
+            p.appendChild(tag);
+
+            //把p标签放在div 里面
+            document.getElementById('i1').appendChild(p);
+        }
+
+    </script>
+</body>
+</html>

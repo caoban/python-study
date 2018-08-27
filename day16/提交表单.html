@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form id="f1" action="http://www.oldboyedu.com">
+        <input type="text"/>
+        <input type="submit" value="提交" />
+        <a onclick="submitform();" >提交a</a>
+    </form>
+    <script>
+        function submitform() {
+            // document.getElementById('f1').submit()
+            var v = confirm('真的要删除吗');
+            console.log(v);
+        }
+    </script>
+</body>
+</html>

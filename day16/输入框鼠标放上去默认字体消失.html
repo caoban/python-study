@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div style="width: 600px;margin: 0 auto;">
+        <!--当鼠标在input内的时候是onfocus函数可以捕获到，并做操作-->
+        <!--当鼠标不在input内的时候是onblur函数可以捕获到，并做操作-->
+        <input id="i1" onfocus="Focus();" onblur="Blur();" type="text" value="请输入关键字"/>
+        <!--最新的浏览器才支持-->
+        <input type="text" placeholder="请输入关键字">
+    </div>
+    <script>
+
+        function Focus() {
+            console.log(11);
+            var tag = document.getElementById('i1');
+            var val = tag.value;
+            if (val == "请输入关键字"){
+                tag.value = "";
+            }
+        }
+
+        function Blur() {
+            console.log(2);
+            var tag = document.getElementById('i1');
+            var val = tag.value;
+            if (val == ""){
+                tag.value = "请输入关键字";
+            }
+
+        }
+    </script>
+</body>
+</html>
