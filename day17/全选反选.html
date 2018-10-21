@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="button" value="全选" onclick="checkAll();" />
+    <input type="button" value="反选" onclick="reverseAll();" />
+    <input type="button" value="取消" onclick="cancleAll();" />
+
+    <table border="1">
+        <thead>
+            <th>选项</th>
+            <th>IP</th>
+            <th>port</th>
+        </thead>
+
+        <tbody id="td">
+
+            <tr>
+                <td><input  type="checkbox"/></td>
+                <td>1.1.1.1</td>
+                <td>80</td>
+            </tr>
+
+            <tr>
+                <td><input  type="checkbox"/></td>
+                <td>1.1.1.2</td>
+                <td>80</td>
+            </tr>
+
+            <tr>
+                <td><input  type="checkbox"/></td>
+                <td>1.1.1.3</td>
+                <td>80</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="jquery-1.12.4.js"></script>
+    <script>
+        //:checkbox  是一个整体。 加个 #td  防止把其他地方的checked改了
+        function checkAll() {
+            $('#td :checkbox').prop('checked',true);
+        }
+        
+        function cancleAll() {
+            $('#td :checkbox').prop('checked',false);
+            
+        }
+        
+        function reverseAll() {
+            //each 表示循环每一个标签的意思
+            $('#td :checkbox').each(function () {
+                //DOM 的方法
+                //打印，浏览器F12可以看到
+                // console.log(1)
+                // //this 指当前循环的每一个元素
+                // if(this.checked){
+                //     this.checked = false;
+                // }else{
+                //     this.checked = true;
+                // }
+
+                //jquery的方法
+                // $(this) 是jquery对象
+                //   $(this).prop('checked')  表示获取值
+                //   $(this).prop('checked',tru) 传一个值就表示设置值
+                if($(this).prop('checked')){
+                    $(this).prop('checked',false);
+                }else {
+                    $(this).prop('checked',true);
+                }
+
+                //第三种：三元运算的方法
+                // var v = $(this).prop('checked')?false:true;
+                // $(this).prop('checked',v);
+
+            })
+        }
+
+    </script>
+</body>
+</html>

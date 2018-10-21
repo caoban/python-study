@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .header{
+            background: black;
+            color: white;
+        }
+
+        .content{
+            min-height: 50px;
+        }
+
+        .hide{
+            display: none;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div style="height: 400px;width: 200px;border: 1px solid #dddddd;">
+        <div class="item">
+            <div class="header">标题一</div>
+            <div class="content">内容一</div>
+        </div>
+
+        <div class="item">
+            <div class="header">标题二</div>
+            <div class="content">内容二</div>
+        </div>
+        <div class="item">
+            <div class="header">标题三</div>
+            <div class="content">内容三</div>
+        </div>
+
+        <div class="item">
+            <div class="header">标题四</div>
+            <div class="content">内容四</div>
+        </div>
+    </div>
+
+    <script src="jquery-1.12.4.js"></script>
+    <script>
+        //获取所有的class=header的标签 加上click 事件
+        $('.header').click(function () {
+
+            //不知道this是什么的，都可以先打印一下
+            //console.log(this)
+            // this 不带括号的是DOM对象   $(this) 这样就变成jquery对象了
+
+            //当前点击的标签$(this)
+            //获取某个标签的下一个标签
+            // $(this).next()  //当前标签的下一个标签
+            // $(this).prev()  //当前标签的上一个标签
+            // $(this).parent()    //当前标签的父标签
+            // $(this).children()  //当前标签的所有孩子标签
+            // $('.item').siblings()  //当前标签的所有兄弟标签
+            //获取某个标签的父标签
+            //获取所有的兄弟标签
+            //添加样式和移除样式
+
+            //链式编程
+            $(this).next().removeClass('hide');
+            $(this).parent().siblings().find('.content').addClass('hide');
+
+
+
+        })
+
+    </script>
+
+</body>
+</html>
