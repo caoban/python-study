@@ -92,13 +92,19 @@
         
         function cancleModel() {
             $(".modal,.shadow").addClass('hide');
+            $('.modal input[type=text]').val("");
         }
 
         $('.edit').click(function(){
             // this 指当前点击的标签
             //console.log(this)
             var tds = $(this).parent().prevAll();
-            //console.log(tds)
+            var port = $(tds[0]).text();
+            var ip = $(tds[1]).text();
+
+            $('.modal input[name=hostname]').val(ip);
+            $('.modal input[name=port]').val(port);
+
             //循环获取tds中的内容
             //获取 <td>内容</td> 中间的内容
             //赋值给input标签的value

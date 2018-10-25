@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <input id="i1" type="button" value="开关"/>
+    <div class="c1 hide">qweewqewq</div>
+
+    <script src="jquery-1.12.4.js"></script>
+    <script>
+        $('#i1').click(function () {
+
+            // 其他的地方就
+            // if ($('.c1').hasClass('hide')){
+            //     $('.c1').removeClass('hide');
+            // }else {
+            //     $('.c1').addClass('hide');
+            // }
+
+            // jquery里面的方法
+            $('.c1').toggleClass('hide');
+        })
+    </script>
+
+</body>
+</html>
