@@ -55,18 +55,21 @@ for item in Alexreadlines():
     print item
 '''
 
+#python3 是print(xxx) 2是print xxx
+
 tmp = None
 if 1 > 3 :
     tmp = 'gt'
 else:
     tmp = 'lt'
-print tmp
+
+print(tmp)
 #三元运算
 result = 'gt' if 1 > 3 else 'lt'
-print result
+print(result)
 
 a = lambda x,y:x+y
-print a(4,10)
+print(a(4,10))
 
 
 
