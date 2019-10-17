@@ -16,24 +16,21 @@ if __name__ == '__main__':
         #根据输入做备份操作
         if sys.argv[i] == "--bak":
             #执行shell命令
-            subprocess.getstatusoutput("cp -rp file file.bak")
+            subprocess.getstatusoutput("cp -rp file.txt file.bak")
 
             #打开文件，这种不用关闭文件了
-            with open("file",mode="w+",encoding="utf-8") as f:
-                print("指针位置：", f.tell())
+            with open(file="file.txt",mode="a+") as f:
+                print(f.tell())
+                print("开始")
+                print(f.readlines())
+
+                #循环替换，并且开始写文件
                 for lines in f:
                     print("指针位置：", f.tell())
+                    print("lines:",lines)
                     linesReplace=lines.replace("suhan","00000")
                     print(linesReplace)
+
+                    #写到另外一个文件中时可以的，还是写在源文件，这个没成功
                     f.write(linesReplace)
-
-
-                # #打印文件指针所在的位置。mode是r的时候tell是0，mode是a+时tell是在文件最后
-                # print("指针位置：",f.tell())
-                # f.seek(0, 0)
-                # t = f.readline()
-                # t = t.replace("suhan","00000")
-                # print(t)
-                # f.seek(0, 0)
-                # f.write(t)
 
