@@ -3,7 +3,10 @@
 @author:suhan
 '''
 #from file import demo
-#
+
+
+
+
 # def login(username):
 #     if username == 'suhan':
 #         return '登陆成功'
@@ -33,6 +36,9 @@
 #         print item
 # user_dict = {'k1':123,'k2':234}
 # show(**user_dict)
+
+
+
 ''''
 print range(10)
 for item in xrange(10):
@@ -56,38 +62,20 @@ for item in Alexreadlines():
 '''
 
 #python3 是print(xxx) 2是print xxx
-
-tmp = None
-if 1 > 3 :
-    tmp = 'gt'
-else:
-    tmp = 'lt'
-
-print(tmp)
-#三元运算
-result = 'gt' if 1 > 3 else 'lt'
-print(result)
-
-a = lambda x,y:x+y
-print(a(4,10))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#
+# tmp = None
+# if 1 > 3 :
+#     tmp = 'gt'
+# else:
+#     tmp = 'lt'
+#
+# print(tmp)
+# #三元运算
+# result = 'gt' if 1 > 3 else 'lt'
+# print(result)
+#
+# a = lambda x,y:x+y
+# print(a(4,10))
 
 
 
