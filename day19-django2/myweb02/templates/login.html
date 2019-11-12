@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{#enctype="multipart/form-data" 是上传文件的时候需要加上的配置#}
+
+    <form action="/login/" method="post" enctype="multipart/form-data">
+        <p>
+{#            <!--placeholder是输入框中的默认提示-->#}
+           <input type="text" name="user" placeholder="用户名">
+           <input type="password" name="pwd" placeholder="密码">
+           <input type="submit" value="提交">
+
+{#            上传图片#}
+           <input type="file" name="fafafa">
+
+
+        </p>
+        <p>
+{#        单选框#}
+            男：<input type="radio" name="gender" value="1">
+            女 ：<input type="radio" name="gender" value="2">
+        </p>
+
+        <p>
+{#        复选框#}
+            爱好1：<input type="checkbox" name="favor" value="aihao1">
+            爱好2：<input type="checkbox" name="favor" value="aihao2">
+        </p>
+
+
+
+    </form>
+
+</body>
+</html>

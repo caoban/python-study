@@ -12,7 +12,7 @@ def f(url):
     print('GET %s' %url)
 
     resp = request.urlopen(url)
-    print("111111%s" % resp)
+    print("开始%s" % resp)
     data = resp.read()
     f1 = open("url.html","wb")
     f1.write(data)
@@ -21,22 +21,22 @@ def f(url):
 
 statrt_time = time.time()
 
-# # 携程并发
-gevent.joinall([
-    gevent.spawn(f, 'https://v.iivey.com/'),
-    gevent.spawn(f, 'https://v.iivey.com/'),
-    gevent.spawn(f, 'https://v.iivey.com/'),
-])
+# # # 携程并发
+# gevent.joinall([
+#     gevent.spawn(f, 'https://v.iivey.com/'),
+#     gevent.spawn(f, 'https://v.iivey.com/'),
+#     gevent.spawn(f, 'https://v.iivey.com/'),
+# ])
 
 
 
-# urls = [
-# 'https://v.iivey.com/',
-# 'https://v.iivey.com/',
-# 'https://v.iivey.com/'
-# ]
-# for i in urls:
-#     f(i)
+urls = [
+'https://v.iivey.com/',
+'https://v.iivey.com/',
+'https://v.iivey.com/'
+]
+for i in urls:
+    f(i)
 
 print("总时间" , time.time() - statrt_time)
 

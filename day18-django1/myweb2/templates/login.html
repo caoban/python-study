@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" herf="/static/commons.css"/>
+    <style>
+        label{
+            width: 80px;
+            text-align: right;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!--action="xxx 表示点击提交的时候提交到/xxxx这个路径,然后urls.py中有路由和函数的对应关系，会有对应的结果-->
+    <form action="/home/" method="post">
+
+        <p>
+            <label for="username">用户名:</label>
+            <input id="username" name="user" type="text"/>
+        </p>
+
+        <p>
+            <label for="password">密码:</label>
+            <input id="password" name="pwd" type="password"/>
+            <input type="submit" value="提交"/>
+            <!-- 填充提示信息 -->
+            <span style="color: red;">{{ error_msg_html }}</span>
+        </p>
+    </form>
+    <script src="/static/jquery.min.js"></script>
+
+</body>
+</html>
+
