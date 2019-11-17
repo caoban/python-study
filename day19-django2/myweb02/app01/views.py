@@ -2,14 +2,20 @@ from django.shortcuts import render,redirect,HttpResponse
 
 # Create your views here.
 
+# USER_DICT = {
+#     '1' : 'root@11.com',
+#     '2': 'root@11.com',
+#     '3':'root@11.com',
+#     '4':'root@11.com',
+# }
+
 
 USER_DICT = {
-    '1' : {'name':'suhan','email':'root@11.com'},
-    '2': {'name': 'suhan', 'email': 'root@11.com'},
-    '3': {'name': 'suhan', 'email': 'root@11.com'},
-    '4': {'name': 'suhan', 'email': 'root@11.com'},
+    '1' : {'email':'root@11.com'},
+    '2' : {'email':'root@12.com'},
+    '3' : {'email':'root@13.com'},
+    '4' : {'email':'root@14.com'},
 }
-
 
 
 #urls写对应的url和视图函数，返回一个字符串
@@ -17,9 +23,26 @@ def index(request):
     return render(request,'index.html',{'user_dict':USER_DICT})
 
 
+#nid就是 /detail-1.html url中的1 不知道为什么。可能是(\d+) 正则匹配的原因。
+def detail_id(request,uid,nid):
+    print(nid,uid)
+    return HttpResponse(nid)
 
 
 
+def detail(request,nid):
+
+
+    if request.method == "GET":
+        print(request)
+        #nid 从前端是(\d+) 正则匹配 传过来了
+        #nid = request.GET.get("nid")
+        #根据url中传过来的nid，从字典中获取详细的信息
+        detail_info = USER_DICT[nid]
+        return render(request,'detail.html',{'detail_info':detail_info})
+
+
+#函数是一般的FBV。 传入类的是CBV
 #request只是形参，表示请求，可以换成别的字符串
 def login(request):
     if request.method == "GET":
@@ -60,6 +83,7 @@ def login(request):
     else:
         #PUT,DELETE等其他的方法。
         return redirect('/login/')
+
 
 
 

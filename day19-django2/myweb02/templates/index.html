@@ -6,20 +6,27 @@
 </head>
 <body>
     <ul>
+    <!--
 {#        循环展示字典中的key#}
         {% for k in user_dict.keys %}
         <li>{{ k }}</li>
         {% endfor %}
-
-    {#        循环展示字典中的value#}
-        {% for value in user_dict.values %}
-        <li>{{ value }}</li>
-        {% endfor %}
-
     {#        循环展示字典中的key 和 value#}
         {% for k,row in user_dict.items %}
         <li>{{ k }} - {{ row }}</li>
         {% endfor %}
+
+-->
+
+
+    {#        循环展示字典中的value#}
+        {% for k,value in user_dict.items %}
+
+{#            使用a标签包裹起来，可以点击跳转到对应的url#}
+        <li><a href="/detail-{{ k }}.html">{{ value.email }}</a> </li>
+        {% endfor %}
+
+
 
     </ul>
 

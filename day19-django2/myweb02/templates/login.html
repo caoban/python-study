@@ -8,7 +8,14 @@
 
 {#enctype="multipart/form-data" 是上传文件的时候需要加上的配置#}
 
-    <form action="/login/" method="post" enctype="multipart/form-data">
+{#    当路径起了一个名称的时候，这边可以这样写#}
+{#    <form action="{% url 'loginx' %}" method="post" enctype="multipart/form-data">#}
+
+        #这个是提交的url，也可以这样写
+        <form action="{{ request.path_info }}" method="post" enctype="multipart/form-data">
+
+
+{#    <form action="/login/" method="post" enctype="multipart/form-data">#}
         <p>
 {#            <!--placeholder是输入框中的默认提示-->#}
            <input type="text" name="user" placeholder="用户名">
