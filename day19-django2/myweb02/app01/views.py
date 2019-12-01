@@ -2,44 +2,64 @@ from django.shortcuts import render,redirect,HttpResponse
 
 # Create your views here.
 
-# USER_DICT = {
-#     '1' : 'root@11.com',
-#     '2': 'root@11.com',
-#     '3':'root@11.com',
-#     '4':'root@11.com',
-# }
-
-
-USER_DICT = {
-    '1' : {'email':'root@11.com'},
-    '2' : {'email':'root@12.com'},
-    '3' : {'email':'root@13.com'},
-    '4' : {'email':'root@14.com'},
-}
-
-
 #urls写对应的url和视图函数，返回一个字符串
+#函数和url在urls中对应起来的
 def index(request):
-    return render(request,'index.html',{'user_dict':USER_DICT})
+    return render(request,'index.html')
 
 
-#nid就是 /detail-1.html url中的1 不知道为什么。可能是(\d+) 正则匹配的原因。
-def detail_id(request,uid,nid):
-    print(nid,uid)
-    return HttpResponse(nid)
-
-
-
-def detail(request,nid):
-
-
+#用户信息对应的函数
+def user_info(request):
     if request.method == "GET":
-        print(request)
-        #nid 从前端是(\d+) 正则匹配 传过来了
-        #nid = request.GET.get("nid")
-        #根据url中传过来的nid，从字典中获取详细的信息
-        detail_info = USER_DICT[nid]
-        return render(request,'detail.html',{'detail_info':detail_info})
+        user_list = models.UserInfo.objects.all()
+        #print(user_list.query )
+
+        return render(request,'user_info.html',{'user_list':user_list})
+
+    #如果提交方式是POST，
+    elif request.method == "POST":
+        #POST方式提交数据的时候获取数据。user，pwd是name
+        u = request.POST.get('user')
+        p = request.POST.get('pwd')
+        #models 是模块名，UserInfo是里面的类，objects固定写法，create表示动作
+        models.UserInfo.objects.create(username=u,password=p)
+        #提交数据后跳转会查看用户信息的界面
+        return redirect("/cmdb/user_info/")
+
+
+#显示用户线下信息函数
+def user_detail(request,nid):
+    obj = models.UserInfo.objects.filter(id=nid).first()
+
+    #这种取数据，如果nid不存在，就直接程序报错了，不会返回None。需要自己加个try。
+    #models.UserInfo.objects.get(id=nid)
+    return render(request,'user_detail.html',{'obj':obj})
+
+
+#删除对应的用户信息的函数
+def user_del(request,nid):
+    # models 是模块名，UserInfo是里面的类，objects固定写法，filter过滤数据，delete表示动作
+    models.UserInfo.objects.filter(id=nid).delete()
+    return redirect("/cmdb/user_info/")
+
+
+#编辑的时候触发的函数
+def user_edit(request,nid):
+    if request.method == "GET":
+        #根据url中的id，来获取数据。obj里面包含id，name，password等信息
+        obj = models.UserInfo.objects.filter(id=nid).first()
+        return render(request,"user_edit.html",{"obj":obj})
+
+    elif request.method == "POST":
+        #根据input标签中的name来获取值
+        nid = request.POST.get('id')
+        u = request.POST.get('username')
+        p = request.POST.get('password')
+
+        #models是模块名，UserInfo是里面的类，objects是固定写法，filter是过滤对应的条件，update是更新的意识
+        models.UserInfo.objects.filter(id=nid).update(username=u,password=p)
+        return redirect("/cmdb/user_info/")
+
 
 
 #函数是一般的FBV。 传入类的是CBV
@@ -51,39 +71,25 @@ def login(request):
 
     #判断提交的方式是什么类型的
     elif request.method == "POST":
-        # #获取POST方式提交过来的数据，通过name来获取的
-        # v = request.POST.get('gender')
-        # print(v)
-        #
-        # #getlist 是获取多个值，复选框提交过来的值，列表的形式展示
-        # aihao = request.POST.getlist('favor')
-        # print(aihao)
-        #
+        #user是html标签的名称
+        u = request.POST.get('user')
+        p = request.POST.get('pwd')
+        #根据条件过滤数据库中的信息。写多个表示and 的意识
+        #加上.first() 表示获取第一个。不加就获取全部的。
+        obj = models.UserInfo.objects.filter(username=u,password=p).first()
 
-        v = request.POST.get('fafafa')
-        print(v)
+        #count = models.UserInfo.objects.filter(username=u,password=p).count()
+        #可以根据返回结果是否有值，判断用户名和密码是否正确
 
-        tupian = request.FILES.get('fafafa')
-        # tupian打印出来是个名称，type(tupian) 是一个对象，tupian.name也是名称
-        print(tupian,type(tupian),tupian.name)
+        if obj:
+            #redirect是跳转到对应的url
+            return redirect('/cmdb/index/')
 
-        #加一级文件目录
-        import os
-        file_path = os.path.join('upload', tupian.name)
-
-        #打开一个同名的新文件，tupian.chunks()就是上传的图片的内容
-        f = open(file_path, mode='wb')
-        #写到同名的文件中，就算是保存下来了
-        for i in tupian.chunks():
-            f.write(i)
-        f.close()
-
-        return redirect('/index/')
+        #return render(request, 'login.html')
 
     else:
         #PUT,DELETE等其他的方法。
         return redirect('/login/')
-
 
 
 
@@ -112,6 +118,53 @@ class Home(View):
     def post(self,request):
         print(request.method,"post")
         return render(request, 'home.html')
+
+
+#导入自己写的数据库模块相关的代码
+from app01 import models
+def orm(request):
+
+    #创建
+    #插入数据的第一种方法：
+    #表示在数据中插入一行数据，用户名和密码。
+    # models.UserInfo.objects.create(
+    #     username='root',
+    #     password='123'
+    # )
+
+    # #第一种写法的另外一种形式
+    # dic = {'username':'suhan2','password':'111'}
+    # models.UserInfo.objects.create(**dic)
+
+    # #插入数据的第二种方法
+    # obj = models.UserInfo(username='suhan',password='123')
+    # obj.save()
+
+
+    #查询全部
+    #result = models.UserInfo.objects.all()
+    #result是个QuerySet类型的数据，Django提供的，可以理解为一个列表
+    #查询，过滤条件
+    # result = models.UserInfo.objects.filter(username='suhan')
+    #
+    # for row in result:
+    #     print(row.id,row.username,row.password)
+    #
+
+    #删除
+
+
+    #删除 id=4的数据
+    #models.UserInfo.objects.filter(id='4').delete()
+    #删除username='suhan' 的数据
+    #models.UserInfo.objects.filter(username='suhan').delete()
+
+    #更新所有的数据中的password='8899'
+    models.UserInfo.objects.all().update(password='8899')
+    #更新username='suhan2'的数据中的password='0011'
+    models.UserInfo.objects.filter(username='suhan2').update(password='0011')
+
+    return HttpResponse('orm')
 
 
 

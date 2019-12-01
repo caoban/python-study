@@ -25,9 +25,12 @@ from app01 import views
 
 from django.conf.urls import url,include
 urlpatterns = [
+    #这个是django特有的自带的，管理页面
+    path('admin/', admin.site.urls),
+
     #路由分发，访问/admin/的就会去，app01目录下url.py中去找对应的路由关系
-    path('admin/', include("app01.urls")),
-    path('cmdb/', include("app02.urls")),
+    path('cmdb/', include("app01.urls")),
+    path('admin/', include("app02.urls")),
 
 ]
 

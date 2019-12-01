@@ -25,6 +25,15 @@
             <a class="menu" href="/cmdb/user_group/">用户组管理</a>
         </div>
         <div style="position: absolute;top: 48px;left: 210px;bottom: 0;right: 0;overflow: auto">
+            <h1>编辑用户</h1>
+
+            <form method="POST" action="/cmdb/useredit-{{ obj.id }}/">
+                {# 值就是渲染过来的obj对象 #}
+                <input style="display: none;" type="text" name="id" value="{{ obj.id }}">
+                <input type="text" name="username" value="{{ obj.username }}">
+                <input type="text" name="password" value="{{ obj.password }}">
+                <input type="submit" name="提交">
+            </form>
 
         </div>
 

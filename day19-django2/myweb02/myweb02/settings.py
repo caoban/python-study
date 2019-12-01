@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #这边设置了django才能找到app01 下面的models.py文件
+    'app01',
 ]
 
 MIDDLEWARE = [
