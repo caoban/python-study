@@ -18,7 +18,7 @@
             z-index: 100;
         }
 
-        .add-modal,.edit-modal{
+        .add-modal{
             position: fixed;
             height: 300px;
             width: 400px;
@@ -48,7 +48,6 @@
                 <th>端口</th>
                 <th>业务线名称</th>
                 <th>业务线编码</th>
-                <th>操作</th>
             </tr>
         </thead>
         <tbody>
@@ -61,9 +60,6 @@
                     <td>{{ row.port }}</td>
                     <td>{{ row.b.caption }}</td>
                     <td>{{ row.b.code }}</td>
-                    <td>
-                        <a class="edit">编辑</a>|<a class="delete">删除</a>
-                    </td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -134,33 +130,6 @@
         <span id="error_msg" style="color: red"></span>
         </form>
     </div>
-    <div class="edit-modal hide">
-        <form method="POST" action="/host/">
-        <div class="group">
-{#            id 是可以用来被别人认识的，比如给这个标签做什么事情等#}
-            <input id="host" type="text" placeholder="主机名" name="hostname">
-        </div>
-
-        <div class="group">
-            <input id="ip" type="text" placeholder="IP" name="ip">
-        </div>
-        <div class="group">
-            <input id="port" type="text" placeholder="端口" name="port">
-        </div>
-        <div class="group">
-            <select id="sel" name="b_id">
-                {% for op in b_list %}
-                    <option value="{{ op.id }}">{{ op.caption }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <input type="submit" value="提交">
-        <a id="ajax_submit">悄悄提交</a>
-        <input id="cancel" type="button" value="取消">
-        <span id="error_msg" style="color: red"></span>
-        </form>
-    </div>
-
 
     <script src="/static/jquery-1.12.4.js"></script>
     <script>
@@ -190,13 +159,6 @@
                     }
                  })
             })
-
-            {#根据class找，所有的编辑都弹出一样的编辑界面#}
-            $('.edit').click(function () {
-                $('.shade,.edit-modal').removeClass('hide')
-
-            })
-
         })
     </script>
 </body>
